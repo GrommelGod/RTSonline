@@ -72,8 +72,6 @@
     <Compile Include="Assets\0_Scripts\View\BarrackView.cs" />
     <Compile Include="Assets\0_Scripts\View\CameraController.cs" />
     <Compile Include="Assets\0_Scripts\View\GatherResources.cs" />
-    <Compile Include="Assets\0_Scripts\View\Menu.cs" />
-    <Compile Include="Assets\0_Scripts\View\PlayerTeam.cs" />
     <Compile Include="Assets\0_Scripts\View\ProductionUnit.cs" />
     <Compile Include="Assets\0_Scripts\View\ResourcesBonus.cs" />
     <Compile Include="Assets\0_Scripts\View\SelfDestruct.cs" />

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Barrack : Entity
 {
-    private UnitStorage _unitStorage;
     private ProductionUnit _production;
     private Entity _barrackEntity;
 

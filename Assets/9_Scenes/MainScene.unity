@@ -3182,7 +3182,8 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ButtonUnit
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7410103850510404598, guid: 10a10569935111e46b171fc0d02e17c6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 10a10569935111e46b171fc0d02e17c6, type: 3}
 --- !u!1001 &1008282694
 PrefabInstance:
