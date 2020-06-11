@@ -1,0 +1,16 @@
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Game Code\bin\Debug\MushroomsUnity3DExample.dll
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Game Code\bin\Debug\MushroomsUnity3DExample.pdb
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Game Code\bin\Debug\Player.IO GameLibrary.dll
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Game Code\bin\Debug\Player.IO GameLibrary.xml
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Game Code\obj\Debug\Game Code.csprojAssemblyReference.cache
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Game Code\obj\Debug\Game Code.csproj.CopyComplete
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Game Code\obj\Debug\MushroomsUnity3DExample.dll
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Game Code\obj\Debug\MushroomsUnity3DExample.pdb
+C:\STROnlineDugueArthur\Serverside Code\Game Code\bin\Debug\Player.IO GameLibrary.dll
+C:\STROnlineDugueArthur\Serverside Code\Game Code\bin\Debug\Player.IO GameLibrary.xml
+C:\STROnlineDugueArthur\Serverside Code\Game Code\obj\Debug\Game Code.csprojAssemblyReference.cache
+C:\STROnlineDugueArthur\Serverside Code\Game Code\obj\Debug\Game Code.csproj.CopyComplete
+C:\STROnlineDugueArthur\Serverside Code\Game Code\bin\Debug\WasteWar.dll
+C:\STROnlineDugueArthur\Serverside Code\Game Code\bin\Debug\WasteWar.pdb
+C:\STROnlineDugueArthur\Serverside Code\Game Code\obj\Debug\WasteWar.dll
+C:\STROnlineDugueArthur\Serverside Code\Game Code\obj\Debug\WasteWar.pdb

@@ -24,22 +24,22 @@ public class CameraController : MonoBehaviour
         Vector3 pos = transform.position;
 
         #region Moving Camera
-        if (Input.mousePosition.y >= Screen.height - _panBorderThickness || Input.GetKey(KeyCode.Z))
+        if (Input.mousePosition.y >= Screen.height - _panBorderThickness || Input.GetKey(KeyCode.UpArrow))
         {
             pos.z += _panSpeed * Time.deltaTime;
         }
 
-        if (Input.mousePosition.y <= _panBorderThickness || Input.GetKey(KeyCode.S))
+        if (Input.mousePosition.y <= _panBorderThickness || Input.GetKey(KeyCode.DownArrow))
         {
             pos.z -= _panSpeed * Time.deltaTime;
         }
 
-        if (Input.mousePosition.x >= Screen.width - _panBorderThickness || Input.GetKey(KeyCode.D))
+        if (Input.mousePosition.x >= Screen.width - _panBorderThickness || Input.GetKey(KeyCode.RightArrow))
         {
             pos.x += _panSpeed * Time.deltaTime;
         }
 
-        if (Input.mousePosition.x <= _panBorderThickness || Input.GetKey(KeyCode.Q))
+        if (Input.mousePosition.x <= _panBorderThickness || Input.GetKey(KeyCode.LeftArrow))
         {
             pos.x -= _panSpeed * Time.deltaTime;
         }

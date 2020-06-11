@@ -10,20 +10,17 @@ public class UnitController : MonoBehaviour
     private Camera _camera;
     [SerializeField]
     private RectTransform _rect;
-
+    [SerializeField]
     private UnitStorage _unitStorage;
-    private Sense _sense;
 
     private Vector2 _startDragPos;
-    private Vector2 _endDragPos;
-    private Vector2 _mousePosDrag1;
-    private Vector2 _mousePosDrag2;
 
-    private List<GameObject> _clickedUnit = new List<GameObject>();
+    private List<Entity> _clickedUnit = new List<Entity>();
+
+    public List<Entity> ClickedUnit { get => _clickedUnit; private set => _clickedUnit = value; }
 
     void Awake()
     {
-        _unitStorage = FindObjectOfType<UnitStorage>();
         _rect.gameObject.SetActive(false);
     }
 
@@ -32,26 +29,43 @@ public class UnitController : MonoBehaviour
         #region LeftClick
         if (Input.GetMouseButtonDown(0))
         {
-            RaycastHit raySelectBox;
-            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out raySelectBox, Mathf.Infinity))
-            {
-                _startDragPos = Input.mousePosition;
-            }
-
             RaycastHit hit;
             Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, _units))
+            if (Network.GetInstance()._localPlayer.ColorIndex == 0)
             {
-                if (!Input.GetKey(KeyCode.LeftControl))
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, _units))
+                {
+                    if (!Input.GetKey(KeyCode.LeftControl))
+                    {
+                        ClearUnitsList();
+                    }
+                    _clickedUnit.Add(hit.collider.gameObject.GetComponent<Entity>());
+                    hit.collider.GetComponent<UnitMovement>()._selected = true;
+                }
+                else
                 {
                     ClearUnitsList();
                 }
-                _clickedUnit.Add(hit.collider.gameObject);
-                hit.collider.GetComponent<UnitMovement>()._selected = true;
+
+                _startDragPos = Input.mousePosition;
             }
             else
             {
-                ClearUnitsList();
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, _enemy))
+                {
+                    if (!Input.GetKey(KeyCode.LeftControl))
+                    {
+                        ClearUnitsList();
+                    }
+                    _clickedUnit.Add(hit.collider.gameObject.GetComponent<Entity>());
+                    hit.collider.GetComponent<UnitMovement>()._selected = true;
+                }
+                else
+                {
+                    ClearUnitsList();
+                }
+
+                _startDragPos = Input.mousePosition;
             }
         }
 
@@ -59,9 +73,19 @@ public class UnitController : MonoBehaviour
         {
             _rect.gameObject.SetActive(false);
 
-            if (_startDragPos != _endDragPos)
+            Vector2 _rectMin = _rect.anchoredPosition - _rect.sizeDelta / 2;
+            Vector2 _rectMax = _rect.anchoredPosition + _rect.sizeDelta / 2;
+
+            foreach (KeyValuePair<int, Entity> item in _unitStorage.Units)
             {
-                DragSelect();
+                var posScreen = _camera.WorldToScreenPoint(item.Value.gameObject.transform.position);
+
+                if (posScreen.x > _rectMin.x && posScreen.x < _rectMax.x &&
+                    posScreen.y > _rectMin.y && posScreen.y < _rectMax.y)
+                {
+                    _clickedUnit.Add(item.Value);
+                    item.Value.GetComponent<UnitMovement>()._selected = true;
+                }
             }
         }
 
@@ -73,31 +97,14 @@ public class UnitController : MonoBehaviour
                 _rect.gameObject.SetActive(true);
             }
 
-            _endDragPos = Input.mousePosition;
+            var _endDragPos = Input.mousePosition;
 
-            Vector2 squareStart = _startDragPos;
+            float sizeX = _endDragPos.x - _startDragPos.x;
+            float sizeY = _endDragPos.y - _startDragPos.y;
 
-            Vector2 center = (squareStart + _endDragPos) / 2f;
-
-            _rect.position = center;
-
-            float sizeX = Mathf.Abs(squareStart.x - _endDragPos.x);
-            float sizeY = Mathf.Abs(squareStart.y - _endDragPos.y);
-
-            _rect.sizeDelta = new Vector2(sizeX, sizeY);
+            _rect.sizeDelta = new Vector2(Mathf.Abs(sizeX), Mathf.Abs(sizeY));
+            _rect.anchoredPosition = _startDragPos + new Vector2(sizeX / 2, sizeY / 2);
             #endregion
-
-            ///TODO Fix that. The drag selection doesn't work.
-            var _rectSelect = _camera.ScreenToWorldPoint(_rect.sizeDelta);
-
-            foreach (GameObject item in _unitStorage.Units)
-            {
-                if (_rectSelect.x.Equals(item.transform.position.x))
-                {
-                    _clickedUnit.Add(item);
-                    item.GetComponent<UnitMovement>()._selected = true;
-                }
-            }
         }
         #endregion
 
@@ -108,15 +115,13 @@ public class UnitController : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit1, Mathf.Infinity, _enemy))
             {
-                //Debug.Log("enemy target");
-
                 if (_clickedUnit != null)
                 {
-                    foreach (GameObject item in _clickedUnit)
+                    foreach (Entity item in _clickedUnit)
                     {
                         item.GetComponent<UnitMovement>()._clickOnEnemy = true;
-                        item.GetComponent<UnitMovement>().EnemyTarget(hit1.collider.gameObject);
-                        item.GetComponent<UnitAttack>().EnemyTarget(hit1.collider.gameObject);
+                        item.GetComponent<UnitMovement>().OnEnemyDetected(hit1.collider.gameObject);
+                        item.GetComponent<UnitAttack>().OnEnemyDetected(hit1.collider.gameObject);
                     }
                 }
             }
@@ -124,7 +129,7 @@ public class UnitController : MonoBehaviour
             {
                 if (_clickedUnit != null)
                 {
-                    foreach (GameObject item in _clickedUnit)
+                    foreach (Entity item in _clickedUnit)
                     {
                         item.GetComponent<UnitMovement>().AtThisPosition(hit1.point);
                         item.GetComponent<UnitMovement>()._clickOnEnemy = false;
@@ -135,14 +140,9 @@ public class UnitController : MonoBehaviour
         #endregion
     }
 
-    private void DragSelect()
-    {
-        Rect _rectangle = new Rect(_startDragPos.x, _startDragPos.y, _endDragPos.x - _startDragPos.x, _endDragPos.y - _endDragPos.y);
-    }
-
     private void ClearUnitsList()
     {
-        foreach (GameObject item in _clickedUnit)
+        foreach (Entity item in _clickedUnit)
         {
             item.GetComponent<UnitMovement>()._selected = false;
         }

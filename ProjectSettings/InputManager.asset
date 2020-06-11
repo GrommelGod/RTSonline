@@ -297,7 +297,39 @@ InputManager:
     m_Name: ScrollKeyboard
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: a
+    negativeButton: y
+    positiveButton: u
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.001
+    sensitivity: 10
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: Stop
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: z
+    positiveButton: z
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 3
+    dead: 0.001
+    sensitivity: 10
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: Hold
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: e
     positiveButton: e
     altNegativeButton: 
     altPositiveButton: 

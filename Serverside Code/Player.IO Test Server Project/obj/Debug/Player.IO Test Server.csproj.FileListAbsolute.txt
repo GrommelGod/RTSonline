@@ -1,0 +1,22 @@
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Player.IO Test Server Project\bin\Debug\Test Server.exe
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Player.IO Test Server Project\bin\Debug\Test Server.pdb
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Player.IO Test Server Project\bin\Debug\MushroomsUnity3DExample.dll
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Player.IO Test Server Project\bin\Debug\Player.IO Development Server.exe
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Player.IO Test Server Project\bin\Debug\Player.IO GameLibrary.dll
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Player.IO Test Server Project\bin\Debug\MushroomsUnity3DExample.pdb
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Player.IO Test Server Project\bin\Debug\Player.IO GameLibrary.xml
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Player.IO Test Server Project\obj\Debug\Player.IO Test Server.csprojAssemblyReference.cache
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Player.IO Test Server Project\obj\Debug\Player.IO Test Server.csproj.CopyComplete
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Player.IO Test Server Project\obj\Debug\Test Server.exe
+C:\Users\gromm\OneDrive\Bureau\Player.io\Unity3D\Example - Multiplayer - Mushrooms\Serverside Code\Player.IO Test Server Project\obj\Debug\Test Server.pdb
+C:\STROnlineDugueArthur\Serverside Code\Player.IO Test Server Project\bin\Debug\Test Server.exe
+C:\STROnlineDugueArthur\Serverside Code\Player.IO Test Server Project\bin\Debug\Test Server.pdb
+C:\STROnlineDugueArthur\Serverside Code\Player.IO Test Server Project\bin\Debug\Player.IO Development Server.exe
+C:\STROnlineDugueArthur\Serverside Code\Player.IO Test Server Project\bin\Debug\Player.IO GameLibrary.dll
+C:\STROnlineDugueArthur\Serverside Code\Player.IO Test Server Project\bin\Debug\Player.IO GameLibrary.xml
+C:\STROnlineDugueArthur\Serverside Code\Player.IO Test Server Project\obj\Debug\Player.IO Test Server.csprojAssemblyReference.cache
+C:\STROnlineDugueArthur\Serverside Code\Player.IO Test Server Project\obj\Debug\Player.IO Test Server.csproj.CopyComplete
+C:\STROnlineDugueArthur\Serverside Code\Player.IO Test Server Project\obj\Debug\Test Server.exe
+C:\STROnlineDugueArthur\Serverside Code\Player.IO Test Server Project\obj\Debug\Test Server.pdb
+C:\STROnlineDugueArthur\Serverside Code\Player.IO Test Server Project\bin\Debug\WasteWar.dll
+C:\STROnlineDugueArthur\Serverside Code\Player.IO Test Server Project\bin\Debug\WasteWar.pdb

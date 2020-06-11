@@ -4,19 +4,29 @@ using UnityEngine;
 
 public class BarrackView : MonoBehaviour
 {
-    private Transform _barrackPos;
-
-    public bool _canProduce;
+    private Team _Team;
     [SerializeField]
-    private GameObject _rangerPrefab;
-
-    private Vector3 _rallyPointPos;
-    public GameObject _rallyPoint;
-
+    private GameObject _rangerPrefab, _enemyPrefab;
     [SerializeField]
     private LineRenderer _rallyLine;
+    [SerializeField]
+    private GameObject _rallyPoint;
 
-    private float _processTimer = 10f;
+    private UnitStorage _unitStorage;
+    private GatherResources _resources;
+
+    public bool _canProduce;
+    private bool _unitInLine;
+    private Transform _barrackPos;
+    private Vector3 _rallyPointPos;
+    private float _processTimer = 8f;
+
+    private void Awake()
+    {
+        _Team = GetComponent<Barrack>().GetTeam();
+        _resources = FindObjectOfType<GatherResources>();
+        _unitStorage = FindObjectOfType<UnitStorage>();
+    }
 
     private void Start()
     {
@@ -33,8 +43,23 @@ public class BarrackView : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.A))
             {
-                OrderToSpawnRanger();
+                if (!_unitInLine && _resources.Resources >= 20)
+                {
+                    OrderToSpawnUnit();
+                    _resources.Resources -= 20;
+                    _unitInLine = true;
+                }
             }
+        }
+    }
+
+    public void ButtonUnit()
+    {
+        if (!_unitInLine && _resources.Resources >= 20)
+        {
+            OrderToSpawnUnit();
+            _resources.Resources -= 20;
+            _unitInLine = true;
         }
     }
 
@@ -43,12 +68,25 @@ public class BarrackView : MonoBehaviour
         _rallyPointPos = rally;
     }
 
-    private void SpawnRanger()
+    private void SpawnUnit()
     {
-        Instantiate(_rangerPrefab, _rallyPoint.transform.position, Quaternion.identity);
+        if (_Team == Team.TeamRed)
+        {
+            var instantiated = Instantiate(_rangerPrefab, transform.position, Quaternion.identity);
+            _unitStorage.AddUnit(instantiated.GetComponent<Entity>());
+            Network.GetInstance().UnitOnServer(instantiated.GetComponent<Entity>().UnitID);
+            instantiated.GetComponent<UnitMovement>().AtThisPosition(_rallyPointPos);
+        }
+        else
+        {
+            var instantiated = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
+            _unitStorage.AddUnit(instantiated.GetComponent<Entity>());
+            Network.GetInstance().UnitOnServer(instantiated.GetComponent<Entity>().UnitID);
+            instantiated.GetComponent<UnitMovement>().AtThisPosition(_rallyPointPos);
+        }
     }
 
-    public void OrderToSpawnRanger()
+    public void OrderToSpawnUnit()
     {
         StartCoroutine(Process());
     }
@@ -56,6 +94,7 @@ public class BarrackView : MonoBehaviour
     private IEnumerator Process()
     {
         yield return new WaitForSeconds(_processTimer);
-        SpawnRanger();
+        SpawnUnit();
+        _unitInLine = false;
     }
 }

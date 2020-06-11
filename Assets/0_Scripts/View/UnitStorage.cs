@@ -4,64 +4,32 @@ using UnityEngine;
 
 public class UnitStorage : MonoBehaviour
 {
-    private Player _player = new Player();
+    private int _unitID;
 
-    private List<GameObject> _units = new List<GameObject>();
-    private List<GameObject> _enemyUnits = new List<GameObject>();
-    private List<GameObject> _buildings = new List<GameObject>();
-    private List<GameObject> _enemyBuildings = new List<GameObject>();
+    private Dictionary<int, Entity> _units = new Dictionary<int, Entity>();
+    private Dictionary<int, Entity> _buildings = new Dictionary<int, Entity>();
 
-    public List<GameObject> Units { get => _units; }
+    public Dictionary<int, Entity> Units { get => _units; }
 
-    public void AddUnit(GameObject unit, bool _enemy)
+    public void AddUnit(Entity unit)
     {
-        if (!_enemy)
-        {
-            _units.Add(unit);
-            _player.CreateUnit();
-        }
-        else
-        {
-            _enemyUnits.Add(unit);
-        }
+        _unitID++;
+        unit.UnitID = _unitID;
+        _units.Add(unit.UnitID, unit);
     }
 
-    public void RemoveUnit(GameObject unit, bool _enemy)
+    public void RemoveUnit(int unitID)
     {
-        if (!_enemy)
-        {
-            _units.Remove(unit);
-            _player.DeleteUnit();
-        }
-        else
-        {
-            _enemyUnits.Remove(unit);
-        }
+        _units.Remove(unitID);
     }
 
-    public void AddBuilding(GameObject building, bool _enemy)
+    public void AddBuilding(Entity build)
     {
-        if (!_enemy)
-        {
-            _buildings.Add(building);
-            _player.CreateBuilding();
-        }
-        else
-        {
-            _enemyBuildings.Remove(building);
-        }
+        _buildings.Add(build.UnitID, build);
     }
 
-    public void RemoveBuilding(GameObject building, bool _enemy)
+    public void RemoveBuilding(int buildID)
     {
-        if (!_enemy)
-        {
-            _buildings.Remove(building);
-            _player.DeleteBuilding();
-        }
-        else
-        {
-            _enemyBuildings.Remove(building);
-        }
+        _buildings.Remove(buildID);
     }
 }

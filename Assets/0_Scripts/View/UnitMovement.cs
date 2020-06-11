@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -7,6 +8,7 @@ public class UnitMovement : MonoBehaviour
 {
     public bool _selected;
     public bool _clickOnEnemy;
+    private bool _holdPos;
 
     public NavMeshAgent _navMesh;
 
@@ -20,30 +22,24 @@ public class UnitMovement : MonoBehaviour
     private GameObject _selectionUI;
 
     private Sense _sense;
-    private RangerViewStats _unitsStats;
-    private EnemyViewStats _enemyStats;
+    private Unit _unitsStats;
 
     private void Awake()
     {
         _sense = GetComponent<Sense>();
         _navMesh = GetComponent<NavMeshAgent>();
         _positionUnit = transform.position;
-        _unitsStats = GetComponent<RangerViewStats>();
-        _enemyStats = GetComponent<EnemyViewStats>();
+        _unitsStats = GetComponent<Unit>();
+    }
 
-        if (_unitsStats == null)
-        {
-            return;
-        }
-        if (_enemyStats == null)
-        {
-            return;
-        }
+    internal void OnEnemyDetected(GameObject enemy)
+    {
+        _currentEnemy = enemy;
     }
 
     private void Start()
     {
-        if(_unitsStats != null)
+        if (_unitsStats != null)
         {
             _navMesh.SetDestination(_positionUnit);
         }
@@ -51,9 +47,6 @@ public class UnitMovement : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log(_currentEnemy);
-        //Debug.Log(_distanceEnemy);
-
         #region Range between units
         if (_currentEnemy != null)
         {
@@ -79,28 +72,30 @@ public class UnitMovement : MonoBehaviour
         }
         #endregion
 
+        if (_selected)
+        {
+            ///When the player hits Z, the unit stops
+            if (Input.GetButtonDown("Stop"))
+            {
+                _navMesh.SetDestination(transform.position);
+            }
+            ///When the player hits E, the unit won't follow units getting out of sight
+            if (Input.GetButtonDown("Hold"))
+            {
+                _navMesh.SetDestination(transform.position);
+                _holdPos = true;
+            }
+        }
+
         #region Move Toward Enemy
         if (!_selected && !_clickOnEnemy)
         {
-            _sense._playerAttack = false;
             if (_currentEnemy != null)
             {
                 transform.LookAt(_currentEnemy.transform);
                 if (_unitsStats != null)
                 {
-                    if (_distanceEnemy > _unitsStats._ranger._rangerRange)
-                    {
-                        _navMesh.SetDestination(_currentEnemy.transform.position);
-                    }
-                    else
-                    {
-                        _navMesh.SetDestination(transform.position);
-                    }
-                }
-
-                if (_enemyStats != null)
-                {
-                    if (_distanceEnemy > _enemyStats._enemy._enemyRange)
+                    if (_distanceEnemy > _unitsStats.UnitRange && !_holdPos)
                     {
                         _navMesh.SetDestination(_currentEnemy.transform.position);
                     }
@@ -119,9 +114,9 @@ public class UnitMovement : MonoBehaviour
         {
             if (_currentEnemy != null)
             {
+                _holdPos = false;
                 transform.LookAt(_currentEnemy.transform);
-                _sense._playerAttack = true;
-                if (_distanceEnemy > _unitsStats._ranger._rangerRange)
+                if (_distanceEnemy > _unitsStats.UnitRange)
                 {
                     _navMesh.SetDestination(_currentEnemy.transform.position);
                 }
@@ -137,10 +132,5 @@ public class UnitMovement : MonoBehaviour
     public void AtThisPosition(Vector3 position)
     {
         _positionUnit = position;
-    }
-
-    public void EnemyTarget(GameObject enemy)
-    {
-        _currentEnemy = enemy;
     }
 }

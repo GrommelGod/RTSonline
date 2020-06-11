@@ -1,25 +1,48 @@
-﻿public abstract class Entity : ITeamOwner
-{
-    protected Team _team;
-    protected int _lifePoints;
-    protected int _speed;
-    protected int _range;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
-    protected Entity(Team team, int lifePoints, int speed, int range)
-    {
-        _team = team;
-        _lifePoints = lifePoints;
-        _speed = speed;
-        _range = range;
-    }
+public abstract class Entity : MonoBehaviour, ITeamOwner
+{
+    [SerializeField]
+    private Team _team;
+    [SerializeField]
+    private int lifePoints;
+    private int _unitID;
+
+    [SerializeField]
+    protected Image _lifeBar;
+
+    protected int maxHealth;
+
+    public int LifePoints { get => lifePoints; private set => lifePoints = value; }
+    public int UnitID { get => _unitID; set => _unitID = value; }
 
     public Team GetTeam()
     {
         return _team;
     }
 
-    public virtual void TakeDamage(int damage)
+    private void Awake()
     {
-        _lifePoints -= damage;
+        maxHealth = LifePoints;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        LifePoints -= damage;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.LeftAlt))
+        {
+            _lifeBar.enabled = true;
+        }
+        else
+        {
+            _lifeBar.enabled = false;
+        }
+
+        _lifeBar.fillAmount = ((float)LifePoints / maxHealth);
     }
 }
